@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animalec — Back-office de Administração</title>
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --text: #263238;
+      --border: #cfd8dc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* Header e Navegação */
+    header { background: var(--primary-dark); color: #fff; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 1.25rem; }
+    nav { background: var(--primary); padding: 0.5rem 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    nav button { background: transparent; border: none; color: #e8f5e9; padding: 0.5rem 0.9rem; cursor: pointer; border-radius: 4px; font-weight: 500; }
+    nav button:hover, nav button.active { background: rgba(255,255,255,0.2); color: #fff; }
+
+    /* Conteúdo Principal */
+    main { flex: 1; max-width: 1100px; width: 100%; margin: 1.5rem auto; padding: 0 1rem; }
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Cartões do Dashboard */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; cursor: pointer; transition: transform 0.15s; }
+    .card:hover { transform: translateY(-2px); border-color: var(--primary); }
+    .card h3 { color: var(--primary-dark); margin-bottom: 0.4rem; }
+    .badge { display: inline-block; background: #e8f5e9; color: var(--primary-dark); font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 12px; margin-bottom: 0.5rem; font-weight: 600; }
+
+    /* Tabelas e Formulários */
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-top: 1rem; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+    th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--border); }
+    th { background: #eceff1; font-size: 0.85rem; text-transform: uppercase; }
+
+    form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+    input, select { padding: 0.6rem; border: 1px solid var(--border); border-radius: 4px; width: 100%; }
+    .btn-primary { background: var(--primary); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-danger { background: #c62828; color: #fff; border: none; padding: 0.35rem 0.65rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+
+    footer { text-align: center; padding: 1rem; font-size: 0.85rem; color: #607d8b; border-top: 1px solid var(--border); background: var(--surface); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Animalec — Back-office</h1>
+    <span>Administrador</span>
+  </header>
+
+  <nav aria-label="Navegação de Administração">
+    <button class="active" onclick="showView('dashboard', this)">Início</button>
+    <button onclick="showView('animais', this)">Animais</button>
+    <button onclick="showView('utilizadores', this)">Utilizadores</button>
+    <button onclick="showView('quizzes', this)">Quizzes &amp; Questões</button>
+    <button onclick="showView('sponsors', this)">Patrocinadores (Sponsors)</button>
+    <button onclick="showView('experts', this)">Especialistas (Experts)</button>
+  </nav>
+
+  <main>
+    <!-- Dashboard Principal -->
+    <section id="dashboard" class="view active">
+      <h2>Gestão de Entidades</h2>
+      <div class="grid">
+        <article class="card" onclick="showView('animais')">
+          <h3>Animais</h3>
+          <p>Gerir fichas, espécies e habitats.</p>
+        </article>
+        <article class="card" onclick="showView('utilizadores')">
+          <h3>Utilizadores</h3>
+          <p>Gerir contas e permissões de acesso.</p>
+        </article>
+        <article class="card" onclick="showView('quizzes')">
+          <h3>Quizzes &amp; Questões</h3>
+          <p>Gerir perguntas e testes educativos.</p>
+        </article>
+        <article class="card" onclick="showView('sponsors')">
+          <span class="badge">Nova Entidade</span>
+          <h3>Patrocinadores (Sponsors)</h3>
+          <p>Gerir entidades que apoiam os animais.</p>
+        </article>
+        <article class="card" onclick="showView('experts')">
+          <span class="badge">Nova Entidade</span>
+          <h3>Especialistas (Experts)</h3>
+          <p>Gerir cientistas e consultores por espécie.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Entidades Existentes (Simulação de Integração) -->
+    <section id="animais" class="view">
+      <h2>Gestão de Animais</h2>
+      <div class="panel"><p>Módulo existente do projeto Animalec (Capítulo A.3).</p></div>
+    </section>
+
+    <section id="utilizadores" class="view">
+      <h2>Gestão de Utilizadores</h2>
+      <div class="panel"><p>Módulo existente do projeto Animalec (Capítulo A.3).</p></div>
+    </section>
+
+    <section id="quizzes" class="view">
+      <h2>Gestão de Quizzes e Questões</h2>
+      <div class="panel"><p>Módulo existente do projeto Animalec (Capítulo A.3).</p></div>
+    </section>
+
+    <!-- Nova Entidade: SPONSORS -->
+    <section id="sponsors" class="view">
+      <h2>Gestão de Patrocinadores (Sponsors)</h2>
+
+      <article class="panel">
+        <h3>Adicionar Novo Patrocinador</h3>
+        <form id="sponsorForm">
+          <input type="text" id="spNome" placeholder="Nome / Organização" required>
+          <select id="spTipo">
+            <option value="Empresa">Empresa</option>
+            <option value="ONG">ONG</option>
+            <option value="Particular">Particular</option>
+          </select>
+          <input type="text" id="spAnimal" placeholder="Animal / Espécie Associada" required>
+          <input type="email" id="spEmail" placeholder="Email de Contacto" required>
+          <button type="submit" class="btn-primary">Adicionar Sponsor</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h3>Lista de Patrocinadores</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Tipo</th>
+              <th>Animal Associado</th>
+              <th>Contacto</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="sponsorsTable">
+            <tr>
+              <td>BioVida Lda.</td>
+              <td>Empresa</td>
+              <td>Lince Ibérico</td>
+              <td>apoio@biovida.pt</td>
+              <td><button class="btn-danger" onclick="this.closest('tr').remove()">Remover</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+
+    <!-- Nova Entidade: EXPERTS -->
+    <section id="experts" class="view">
+      <h2>Gestão de Especialistas (Experts)</h2>
+
+      <article class="panel">
+        <h3>Adicionar Novo Especialista</h3>
+        <form id="expertForm">
+          <input type="text" id="exNome" placeholder="Nome Completo" required>
+          <input type="text" id="exEspecialidade" placeholder="Especialidade (ex: Felinos)" required>
+          <input type="text" id="exInstituicao" placeholder="Instituição / Universidade" required>
+          <input type="email" id="exEmail" placeholder="Email Profissional" required>
+          <button type="submit" class="btn-primary">Adicionar Expert</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h3>Lista de Especialistas</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Especialidade</th>
+              <th>Instituição</th>
+              <th>Contacto</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="expertsTable">
+            <tr>
+              <td>Dra. Ana Martins</td>
+              <td>Mamíferos Terrestres</td>
+              <td>Instituto de Conservação</td>
+              <td>ana.martins@ic.pt</td>
+              <td><button class="btn-danger" onclick="this.closest('tr').remove()">Remover</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Projeto Animalec — Protótipo HTML5 (Tarefa 3.1b)</p>
+  </footer>
+
+  <script>
+    function showView(viewId, btn) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      if (btn) {
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+    }
+
+    document.getElementById('sponsorForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const row = `<tr>
+        <td>${spNome.value}</td>
+        <td>${spTipo.value}</td>
+        <td>${spAnimal.value}</td>
+        <td>${spEmail.value}</td>
+        <td><button class="btn-danger" onclick="this.closest('tr').remove()">Remover</button></td>
+      </tr>`;
+      document.getElementById('sponsorsTable').insertAdjacentHTML('beforeend', row);
+      this.reset();
+    });
+
+    document.getElementById('expertForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const row = `<tr>
+        <td>${exNome.value}</td>
+        <td>${exEspecialidade.value}</td>
+        <td>${exInstituicao.value}</td>
+        <td>${exEmail.value}</td>
+        <td><button class="btn-danger" onclick="this.closest('tr').remove()">Remover</button></td>
+      </tr>`;
+      document.getElementById('expertsTable').insertAdjacentHTML('beforeend', row);
+      this.reset();
+    });
+  </script>
+</body>
+</html>
